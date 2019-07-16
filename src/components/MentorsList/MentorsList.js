@@ -5,6 +5,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import Card from '../Card/Card';
 
 import './MentorList.css';
+import { timeout } from 'rxjs/operators';
 
 const itemsInPage = 20;
 
@@ -14,9 +15,11 @@ export default class MentorsList extends Component {
   };
 
   loadMore = () => {
-    this.setState({
-      page: this.state.page + 1,
-    });
+    setTimeout(() => {
+      this.setState({
+        page: this.state.page + 1,
+      });
+    }, 300);
   };
 
   componentWillReceiveProps(newProps) {
@@ -49,6 +52,7 @@ export default class MentorsList extends Component {
           className="mentors-cards"
           loadMore={this.loadMore}
           hasMore={mentorsInList.length < mentors.length}
+          threshold={1000}
         >
           {mentorsInList.map(mentor => (
             <Card
